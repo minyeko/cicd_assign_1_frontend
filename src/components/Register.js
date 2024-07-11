@@ -34,7 +34,7 @@ const Register = () => {
                     },
                 };
 
-                const response = await axios.post(`${BaseUrl}/api/register/`, formData, config);
+                await axios.post(`${BaseUrl}/api/register/`, formData, config);
                 setSuccess('Registration successful!');
                 setFormData({
                     username: '',

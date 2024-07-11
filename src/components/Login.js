@@ -18,10 +18,6 @@ const Login = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const [auth, setAuth] = useState({
-        isAuthenticated: false,
-        user: null,
-    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,15 +26,11 @@ const Login = () => {
 
         try {
             const response = await axios.post(`${BaseUrl}/api/login/`, formData);
-            const { token, user } = response.data;
+            const { token } = response.data;
 
 
             localStorage.setItem('token', token);
             //login(user);
-            setAuth({
-                isAuthenticated: true,
-                user,
-            });
             login(formData.username);
             navigate('/main'); // Redirect to homepage after successful login
         } catch (error) {

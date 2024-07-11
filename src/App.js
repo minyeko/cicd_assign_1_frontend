@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {  Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './components/AuthContext';
 import TopBar from './components/TopBar';
 import Login from './components/Login';

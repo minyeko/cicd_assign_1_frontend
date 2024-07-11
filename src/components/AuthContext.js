@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
     const getToken = async () => {
         try {
             const response = await axios.post(`${BaseUrl}/api/login/`, LoginCredentials);
-            const { token, user } = response.data;
+            const { token } = response.data;
             localStorage.setItem('token', token);
             setAuth({
                 //isAuthenticated: true,
