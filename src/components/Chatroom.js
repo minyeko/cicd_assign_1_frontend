@@ -5,6 +5,7 @@ import {BaseUrl} from "./constants";
 function ChatRoom(props) {
     const [users, setUsers] = useState([])
     const [selectedUsers, setSelectedUsers] = useState({});
+    const [createChatroomStatus, setCreateChatroomStatus] = useState("")
     useEffect(() => {
         let config = {
             method: 'get',
@@ -18,12 +19,10 @@ function ChatRoom(props) {
 
         axios.request(config)
             .then((response) => {
-                console.log('User list ---------------------------');
                 console.log(JSON.stringify(response.data));
                 setUsers(response.data);
             })
             .catch((error) => {
-                console.log('----------//-----------------');
                 console.log(error);
             });
 
@@ -34,6 +33,7 @@ function ChatRoom(props) {
 
         let data = {
             name: document.getElementById('name').value,
+            created_by: document.getElementById('created_by').value,
             members: Object.keys(selectedUsers).filter((key) => selectedUsers[key])
         }
         let config = {
@@ -49,7 +49,7 @@ function ChatRoom(props) {
         axios.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                alert('Created successfully');
+                setCreateChatroomStatus("Chatroom created successfully!!");
             })
             .catch((error) => {
                 console.log(error);
@@ -71,6 +71,14 @@ function ChatRoom(props) {
             </div>
             <br/><br/>
             <div>
+                <p>Created By:
+                <select id="created_by">
+                    {users.map((user) => {
+                        return <option key={user.id} value={user.id}>{user.username}</option>;
+                    })}
+                </select></p>
+            </div>
+            <div>
                 <p>Select members:</p>
                 {users.map((user) => (
                 <div className="user-list" key={user.id}>
@@ -84,6 +92,7 @@ function ChatRoom(props) {
                 </div>
                  ))}
             </div>
+            <div className="alert alert-success">{createChatroomStatus}</div>
             <div>
                 <h2>Selected Items:</h2>
                 <ul>
